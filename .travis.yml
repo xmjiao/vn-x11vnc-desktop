@@ -1,0 +1,17 @@
+os: linux
+dist: trusty
+language: python
+services: docker
+
+env:
+  global:
+    - BASE=x11vnc/desktop:18.04
+
+before_script:
+  - docker --version
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_USERPASS"
+  - docker pull $BASE
+
+script:
+  - docker build --tag chiao/vn-x11vnc-desktop:latest .
+  - docker push chiao/vn-x11vnc-desktop
