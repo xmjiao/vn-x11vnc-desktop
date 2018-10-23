@@ -27,6 +27,3 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR $DOCKER_HOME
-
-# define a environment var in case we may need it
-ENV VN_GL_IMAGE
