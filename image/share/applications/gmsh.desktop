@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Gmsh Mesh Generator
+GenericName=Gmsh
+Comment=3-D finite element mesh generator
+Exec=/cm/shared/apps/gmsh/4.0.4/bin/gmsh
+Icon=/usr/share/pixmaps/gmsh_32x32.xpm
+Type=Application
+Terminal=false
+Categories=Education;Math;Science;

@@ -1,2 +1,4 @@
-# vn-x11vnc-desktop
-X11 VNC Docker/Singularity Image for Von Neumann cluster at Stony Brook University
+# X11 VNC Docker/Singularity image for Von Neumann cluster @ Stony Brook University
+
+This is an unportable image that is customized for Von Neumann cluster for using
+OpenGL applications.
