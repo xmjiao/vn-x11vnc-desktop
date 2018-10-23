@@ -22,8 +22,7 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
       paraviewopenfoam54 \
-      freecad \
-      freecad-doc && \
+      freecad && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR $DOCKER_HOME
