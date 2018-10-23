@@ -4,4 +4,4 @@
 # NOTE that this file should be placed in Singularity module thus having the
 # same life span as Singularity does.
 
-cd $HOME && run-singularity -H $HOME -B /projects:/projects -B /scratch:/scratch -B /cm:/cm:ro \
+singularity run -H $HOME -B /projects:/projects -B /scratch:/scratch -B /cm:/cm:ro \

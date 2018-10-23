@@ -5,5 +5,5 @@ Terminal=false
 Exec=/cm/shared/apps/visit/ubuntu/2.13.2/bin/visit
 Name=VisIt
 Icon=/usr/share/icons/hicolor/48x48/apps/VisItLogoTrans.png
-Categories=Development;Math;Science
+Categories=Education;Math;Science;
 Comment=Scientific computing environment
