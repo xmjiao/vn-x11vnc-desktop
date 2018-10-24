@@ -12,8 +12,7 @@ build: vn_x11vnc_desktop_latest.simg
 install: build
 	mkdir -p ${PREFIX}/${IMAGE_REPO}
 	cp vn_x11vnc_desktop_latest.simg ${PREFIX}/${IMAGE_REPO}
-	cp x11vnc-desktop.in ${PREFIX}/${SING_VERSION}/bin/x11vnc-desktop
-	@echo ${PREFIX}/${IMAGE_REPO}/vn_x11vnc_desktop_latest.simg >> ${PREFIX}/${SING_VERSION}/bin/x11vnc-desktop
+	@sed 's#@__path2image__@#${PREFIX}/${IMAGE_REPO}/vn_x11vnc_desktop_latest.simg#' x11vnc-desktop.in > ${PREFIX}/${SING_VERSION}/bin/x11vnc-desktop
 	chmod a+x ${PREFIX}/${SING_VERSION}/bin/x11vnc-desktop
 
 vn_x11vnc_desktop_latest.simg:

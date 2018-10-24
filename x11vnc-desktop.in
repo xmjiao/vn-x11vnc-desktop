@@ -1,7 +1,145 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-# launching the desktop with Singularity
-# NOTE that this file should be placed in Singularity module thus having the
-# same life span as Singularity does.
+# Launch the X11VNC desktop for running OpenGL apps
 
-singularity run -H $HOME -B /projects:/projects -B /scratch:/scratch -B /cm:/cm:ro \
+"""Helper script to launch the X11VNC Singularity image
+
+This gate-script provides an intuitive way to launch customized
+Von Neumann cluster Singluarity image for running OpenGL apps
+such as VisIt, ParaView, GMSH, etc.
+
+/projects and /scratch will be mounted with corrent permission,
+/cm is mounted read-only even for root user.
+
+Author: Qiao (Chiao) Chen
+"""
+
+from __future__ import print_function
+
+
+__version__ = '0.1'
+__author__ = 'Qiao (Chiao) Chen'
+RESOLUTIONS = [900, 1080]
+PATH_TO_IMAGE = '@__path2image__@'
+
+
+def get_parser():
+    """Create a command line argument parser
+
+    Supported Options
+    -----------------
+    -v|--version : bool
+        show version
+    -H|--home : str
+        specify mounted home directory, default is $HOME
+    -s|--screen : int
+        specify screen resolutions, default is 900, i.e. 1440x900
+    -h|--help : bool
+        show help and exit
+    -q|--quiet : bool
+        being quiet
+    """
+
+    import argparse
+
+    # get parser
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '-v',
+        '--version',
+        help='show version and exit',
+        action='store_true'
+    )
+    parser.add_argument(
+        '-H',
+        '--home',
+        type=str,
+        help='specify home directory, default is $HOME',
+        default=''
+    )
+    parser.add_argument(
+        '-s',
+        '--screen',
+        type=int,
+        help='specify screen resolutions, default is 1440x900',
+        choices=RESOLUTIONS,
+        default=900
+    )
+    parser.add_argument(
+        '-q',
+        '--quiet',
+        action='store_true',
+        help='being quiet'
+    )
+    return parser
+
+
+def main():
+    """Main executable"""
+
+    import sys
+    import os
+    import subprocess as sp
+
+    # parser arguments
+    args = get_parser().parse_known_args(sys.argv)[0]
+    if args.version:
+        print(__version__)
+        sys.exit(0)
+
+    # get home directory
+    if not args.home:
+        args.home = os.environ.get('HOME')
+    home = os.path.abspath(args.home)
+    if not os.path.isdir(home):
+        sys.stderr.write('{} is not a valid path\n'.format(home))
+        sys.exit(1)
+    if not os.access(home, os.W_OK):
+        sys.stderr.write('you don\'t have write permission to the {}\n'.format(home))
+        sys.exit(1)
+
+    # get resolutions
+    if args.screen not in RESOLUTIONS:
+        sys.stderr.write('{} is not a valid choice of resolution, choices are {}\n'.format(args.screen, RESOLUTIONS))
+        sys.exit(1)
+    res = '1440x900' if args.screen == 900 else '1920x1080'
+    if res == '1920x1080':
+        sys.stderr.write('WARNING! HD resolution may reduce the performance\n')
+        try: sys.stderr.flush()
+        except: pass
+
+    # assemble the command to invoke
+    cmd = ['singularity', 'run', '-H', home,
+            '-B', '/projects:/projects',
+            '-B', '/scratch:/scratch',
+            '-B', '/cm:/cm:ro',
+            PATH_TO_IMAGE, '-s', res]
+
+    # print helpful information
+    if not args.quiet:
+        print('\nOnce the image is launched, you will see a URL with a port number given.')
+        print('Oepn another terminal and do ssh tunneling with that port, i.e.')
+        print('\t\033[92mssh -L[port]:localhost:[port] $USER@vneumann.cewit.stonybrook.edu\033[0m')
+        print('Then open the URL in your browser, you will have a fully functional')
+        print('desktop envrionment.')
+        print('In addition, we suggest that you should consider using VNC Viewer in')
+        print('order to have a better experience. You can obtain VNC Verwer at')
+        print('\t\033[92mhttps://www.realvnc.com/en/connect/download/viewer/\033[0m')
+        print('And the port and password are listed right after the URL.\n')
+        print('Tips:')
+        print('\t1. As long as you don\'t logout, your desktop session will be preserved')
+        print('\t2. Your app/desktop configurations (e.g. shortcuts) will be preserved')
+        print('\t3. Consider launching the desktop image in an interactive shell, e.g. screen/tmux\n')
+        print('singularity command: {}'.format(' '.join(cmd)))
+
+    proc = sp.Popen(cmd)
+    try:
+        import time
+        while proc.poll() is None:
+            time.sleep(0.2)
+    except KeyboardInterrupt:
+        proc.kill()
+
+
+if __name__ == '__main__':
+    main()
