@@ -118,7 +118,7 @@ def main():
     # print helpful information
     if not args.quiet:
         print('\nOnce the image is launched, you will see a URL with a port number given.')
-        print('Oepn another terminal and do ssh tunneling with that port, i.e.')
+        print('Open another terminal and do ssh tunneling with that port, i.e.')
         print('\t\033[92mssh -L[port]:localhost:[port] $USER@vneumann.cewit.stonybrook.edu\033[0m')
         print('Then open the URL in your browser, you will have a fully functional')
         print('desktop envrionment.')
