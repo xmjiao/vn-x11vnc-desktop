@@ -27,6 +27,7 @@ if [ "$DOCKER_HOME" != "$HOME" ]; then
     # copy from $DOCKER_HOME to $HOME for Singularity
     rsync -aub $DOCKER_HOME/.zshrc $HOME/.zshrc
     rsync -aub $DOCKER_HOME/.zprofile $HOME/.zprofile
+    rsync -aub $DOCKER_HOME/.vscode $HOME/
 fi
 
 # source the module init gate file

@@ -4,7 +4,7 @@
 # Authors:
 # Qiao Chen <benechiao@gmail.com>
 
-FROM x11vnc/desktop:18.04
+FROM compdatasci/vscode-desktop:latest
 LABEL maintainer "Qiao Chen <benechiao@gmail.com>"
 
 USER root
@@ -14,16 +14,20 @@ WORKDIR /tmp
 ADD image/home $DOCKER_HOME
 ADD image/share /usr/share
 
-# Install OpenFOAM 5.0 (https://openfoam.org/download/5-0-ubuntu/) and
-# FreeCAD
+# Install Paraview with OpenFOAM (https://openfoam.org/download/5-0-ubuntu/)
+# support and FreeCAD with CalculiX support
 RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
     add-apt-repository http://dl.openfoam.org/ubuntu && \
     add-apt-repository ppa:freecad-maintainers/freecad-stable && \
     apt-get update && \
+    apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
       paraviewopenfoam54 \
       freecad \
       calculix-ccx && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    head -n -1 $DOCKER_HOME/.config/lxsession/LXDE/autostart > $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
+    chmod 775 $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
+    chown -R $DOCKER_USER:$DOCKER_GROUP $DOCKER_HOME
 
 WORKDIR $DOCKER_HOME
