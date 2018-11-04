@@ -13,6 +13,7 @@ WORKDIR /tmp
 # add customized files to system
 ADD image/home $DOCKER_HOME
 ADD image/share /usr/share
+ADD image/bin /usr/local/bin
 
 # Install Paraview with OpenFOAM (https://openfoam.org/download/5-0-ubuntu/)
 # support and FreeCAD with CalculiX support
@@ -26,7 +27,8 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
       freecad \
       calculix-ccx && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    head -n -1 $DOCKER_HOME/.config/lxsession/LXDE/autostart > $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
+    mv $DOCKER_HOME/.config/lxsession/LXDE/autostart $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak && \
+    head -n -1 $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak > $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
     chmod 775 $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
     chown -R $DOCKER_USER:$DOCKER_GROUP $DOCKER_HOME
 

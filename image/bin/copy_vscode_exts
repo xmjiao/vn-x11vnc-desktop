@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$DOCKER_HOME" != "$HOME" ]; then
+    rsync -aub $DOCKER_HOME/.vscode $HOME/
+fi
