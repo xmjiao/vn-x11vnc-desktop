@@ -20,12 +20,14 @@ ADD image/bin /usr/local/bin
 RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
     add-apt-repository http://dl.openfoam.org/ubuntu && \
     add-apt-repository ppa:freecad-maintainers/freecad-stable && \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
+    apt update && \
+    apt upgrade -y && \
+    apt install -y --no-install-recommends \
       paraviewopenfoam54 \
+      paraviewopenfoam56 \
       freecad \
-      calculix-ccx && \
+      calculix-ccx \
+      ffmpeg && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mv $DOCKER_HOME/.config/lxsession/LXDE/autostart $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak && \
     head -n -1 $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak > $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
