@@ -24,7 +24,6 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
     apt upgrade -y && \
     apt install -y --no-install-recommends \
       paraviewopenfoam54 \
-      paraviewopenfoam56 \
       freecad \
       calculix-ccx \
       ffmpeg \
