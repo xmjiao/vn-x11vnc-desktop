@@ -27,7 +27,9 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
       freecad \
       calculix-ccx \
       ffmpeg \
-      feh && \
+      feh \
+      pinta \
+      && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mv $DOCKER_HOME/.config/lxsession/LXDE/autostart $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak && \
     head -n -1 $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak > $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
