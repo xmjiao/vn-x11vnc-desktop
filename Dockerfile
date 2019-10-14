@@ -29,6 +29,7 @@ RUN sh -c "curl -s http://dl.openfoam.org/gpg.key | apt-key add -" && \
       ffmpeg \
       feh \
       pinta \
+      diffuse \
       && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mv $DOCKER_HOME/.config/lxsession/LXDE/autostart $DOCKER_HOME/.config/lxsession/LXDE/autostart.bak && \
