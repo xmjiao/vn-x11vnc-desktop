@@ -4,7 +4,7 @@
 # Authors:
 # Qiao Chen <benechiao@gmail.com>
 
-FROM compdatasci/vscode-desktop:latest
+FROM compdatasci/vscode-desktop:20.04
 LABEL maintainer "Qiao Chen <benechiao@gmail.com>"
 
 USER root
