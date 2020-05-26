@@ -1,17 +1,10 @@
 os: linux
-dist: trusty
 language: python
 services: docker
 
-env:
-  global:
-    - BASE=compdatasci/vscode-desktop:latest
-
 before_script:
-  - docker --version
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_USERPASS"
-  - docker pull $BASE
+  - git clone --depth=1 https://$GIT_TOKEN@github.com/xmjiao/ci-util.git 2> /dev/null
 
 script:
-  - docker build --tag chiao/vn-x11vnc-desktop:latest .
-  - docker push $DOCKER_USERNAME/vn-x11vnc-desktop
+  - './ci-util/build-docker.sh : numgeom/desktop --build-arg SSHKEY_ID=$SSHKEY_ID &&
+    ./ci-util/trigger-via-api.sh'
