@@ -14,4 +14,4 @@ before_script:
 
 script:
   - docker build --tag chiao/vn-x11vnc-desktop:latest .
-  - docker push chiao/vn-x11vnc-desktop
+  - docker push $DOCKER_USERNAME/vn-x11vnc-desktop
