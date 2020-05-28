@@ -38,5 +38,5 @@ module purge &>/dev/null
 module load shared
 module load gmsh/4.0.4
 module load visit/ubuntu/2.13.2
-module load matlab/R2017b
+module load matlab/R2019a
 module load SALOME/ubuntu/9.3.0
