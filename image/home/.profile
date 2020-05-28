@@ -37,4 +37,4 @@ module purge &>/dev/null
 # load commonly used OpenGL applications
 module load shared
 module load visit
-module load matlab/R2019a
+module load matlab/2019a
