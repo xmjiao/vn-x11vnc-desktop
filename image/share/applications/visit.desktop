@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Exec=/cm/shared/apps/visit/ubuntu/2.13.2/bin/visit
+Exec=/gpfs/software/visit-2.13.2/linux-x86_64/bin/visit
 Name=VisIt
 Icon=/usr/share/icons/hicolor/48x48/apps/VisItLogoTrans.png
 Categories=Education;Math;Science;
