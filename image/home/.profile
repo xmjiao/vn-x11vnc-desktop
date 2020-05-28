@@ -36,5 +36,4 @@ source /cm/local/apps/environment-modules/current/init/sh
 module purge &>/dev/null
 # load commonly used OpenGL applications
 module load shared
-module load visit
 module load matlab/2019a
